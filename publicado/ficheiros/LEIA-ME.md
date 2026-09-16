@@ -75,7 +75,8 @@ Em vez do contribuinte, `documentos` leva `_tem_nif` (1/0). `999999990`
 (consumidor final) conta como sem NIF.
 
 Dos empregados entram nome e código; password, foto, telefone, email,
-identificação e observações (`obs`, texto livre) não.
+identificação e observações (`obs`, texto livre) não. Das reservas
+(`marcacoes`) também não entram as observações: costumam ter nomes e telefones.
 
 ---
 
