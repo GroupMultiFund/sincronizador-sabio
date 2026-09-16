@@ -1,0 +1,37 @@
+{
+    "produto":  "SincronizadorSabio",
+    "versao":  "1.0.0",
+    "publicado_em":  "2026-09-16T13:55:23Z",
+    "ficheiros":  [
+                      {
+                          "caminho":  "configurador.ps1",
+                          "sha256":  "1b9543f47bb85fcddeba2bfde31e1445bd8c422748956931ace28826d525c9db",
+                          "tamanho":  13310
+                      },
+                      {
+                          "caminho":  "LEIA-ME.md",
+                          "sha256":  "aca406330ed67aa4fe532f91bb41a80d24fe833cb1dce3408eb08f40a0e45d70",
+                          "tamanho":  11047
+                      },
+                      {
+                          "caminho":  "sincronizador.ps1",
+                          "sha256":  "3d4cb8b7233e7e71dda21a0334e9c31020abc91815dc50c35c8e129b8d5d41bc",
+                          "tamanho":  4217
+                      },
+                      {
+                          "caminho":  "SincronizadorSabio.psm1",
+                          "sha256":  "b6de3ebf2190301c3a4b738beac0dc6670244a44d51762cf8555e7d2c7c13df4",
+                          "tamanho":  70799
+                      },
+                      {
+                          "caminho":  "tabelas.json",
+                          "sha256":  "8c539383d93bb57e90b1cfead022b2b9628ac336a1029ef0b0409a2533f26011",
+                          "tamanho":  2607
+                      },
+                      {
+                          "caminho":  "versao.json",
+                          "sha256":  "fc14d25c0879c0d646805d4d50dccb40350ed5d0e2e7e764da5e8a9b35264e6c",
+                          "tamanho":  19
+                      }
+                  ]
+}
