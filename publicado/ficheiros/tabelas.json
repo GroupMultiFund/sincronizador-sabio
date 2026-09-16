@@ -1,0 +1,35 @@
+{
+  "versao": 1,
+  "nota": "Só entram tabelas desta lista. Acrescentar uma aqui não chega: tem de estar também em TabelasPermitidas no SincronizadorSabio.psm1 e no worker.js. É de propósito. Tabelas por dia só enviam dias fechados (até ontem), salvo incluir_hoje.",
+  "tabelas": [
+    { "nome": "anulacoes",          "modo": "dia", "colunas_data": ["datahora", "data"], "revisao_dias": 3, "purga": true },
+
+    { "nome": "vendas",             "modo": "dia", "colunas_data": ["datahora", "data"], "revisao_dias": 35 },
+    { "nome": "documentos",         "modo": "dia", "colunas_data": ["datahora", "data"], "revisao_dias": 35 },
+    { "nome": "documentos_pessoas", "modo": "dia", "colunas_data": ["datahora", "data"], "revisao_dias": 7 },
+    { "nome": "historico_mesas",    "modo": "dia", "colunas_data": ["datahora"],         "revisao_dias": 7 },
+    { "nome": "historico_precos",   "modo": "dia", "colunas_data": ["datahora"],         "revisao_dias": 7 },
+    { "nome": "tblStockMov",        "modo": "dia", "colunas_data": ["datahora"],         "revisao_dias": 7 },
+    { "nome": "mesasmov",           "modo": "dia", "colunas_data": ["data"],             "revisao_dias": 7 },
+    { "nome": "marcacoes",          "modo": "dia", "colunas_data": ["dataval", "datahora"], "revisao_dias": 7, "incluir_hoje": true },
+    { "nome": "quebras",            "modo": "dia", "colunas_data": ["datahora", "data"], "revisao_dias": 7 },
+    { "nome": "compensacoes",       "modo": "dia", "colunas_data": ["data"],             "revisao_dias": 7 },
+    { "nome": "caixa",              "modo": "dia", "colunas_data": ["data"],             "revisao_dias": 7 },
+    { "nome": "caixadia",           "modo": "dia", "colunas_data": ["data"],             "revisao_dias": 7 },
+
+    { "nome": "venda_dif_valores",  "modo": "referencia" },
+    { "nome": "produtos",           "modo": "referencia" },
+    { "nome": "familias",           "modo": "referencia" },
+    { "nome": "subfamilias",        "modo": "referencia" },
+    { "nome": "empregados",         "modo": "referencia" },
+    { "nome": "empzonas",           "modo": "referencia" },
+    { "nome": "emppostos",          "modo": "referencia" },
+    { "nome": "docpag",             "modo": "referencia" },
+    { "nome": "tipospagamento",     "modo": "referencia" },
+    { "nome": "mapamesas",          "modo": "referencia" },
+    { "nome": "zonas",              "modo": "referencia" },
+    { "nome": "postos",             "modo": "referencia" },
+    { "nome": "fichatecnica",       "modo": "referencia" },
+    { "nome": "fichaingredientes",  "modo": "referencia" }
+  ]
+}
