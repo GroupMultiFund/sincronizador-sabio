@@ -1,7 +1,7 @@
 {
     "produto":  "SincronizadorSabio",
-    "versao":  "1.0.1",
-    "publicado_em":  "2026-09-16T14:26:44Z",
+    "versao":  "1.0.2",
+    "publicado_em":  "2026-09-17T13:12:34Z",
     "ficheiros":  [
                       {
                           "caminho":  "configurador.ps1",
@@ -10,8 +10,8 @@
                       },
                       {
                           "caminho":  "LEIA-ME.md",
-                          "sha256":  "3805b04b0cbc8c649c8932707229897bb90ae6f11d15b9fcd241f6c3b6abb066",
-                          "tamanho":  11144
+                          "sha256":  "43400232b20ddbd5e1819d64c51e5194499b5639672f010de5939535bd749ddd",
+                          "tamanho":  12755
                       },
                       {
                           "caminho":  "sincronizador.ps1",
@@ -20,17 +20,17 @@
                       },
                       {
                           "caminho":  "SincronizadorSabio.psm1",
-                          "sha256":  "d2a6c30d2dab5b07e55669301ead9fc25a75a45d4f177c507ae64449c55aebaf",
-                          "tamanho":  70821
+                          "sha256":  "d57e9c38e4ad1f2b9481ba6f144b777dc662881f696ca5860701d43b2a638939",
+                          "tamanho":  71021
                       },
                       {
                           "caminho":  "tabelas.json",
-                          "sha256":  "8c539383d93bb57e90b1cfead022b2b9628ac336a1029ef0b0409a2533f26011",
-                          "tamanho":  2607
+                          "sha256":  "86441eff722aac0a4bf02784e8df30140ca8ea52f511ef694f82e591dfb31cd5",
+                          "tamanho":  2717
                       },
                       {
                           "caminho":  "versao.json",
-                          "sha256":  "74193915b3609455c0a9357a12ae91868e56aa078956d6567eabfbde3c47efdb",
+                          "sha256":  "aebb2e63c68c3a1eaee9a326eba8e1ad99ed641161d3e20a7f1fe19bf6517053",
                           "tamanho":  19
                       }
                   ]
