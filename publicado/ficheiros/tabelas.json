@@ -16,6 +16,7 @@
     { "nome": "compensacoes",       "modo": "dia", "colunas_data": ["data"],             "revisao_dias": 7 },
     { "nome": "caixa",              "modo": "dia", "colunas_data": ["data"],             "revisao_dias": 7 },
     { "nome": "caixadia",           "modo": "dia", "colunas_data": ["data"],             "revisao_dias": 7 },
+    { "nome": "gratificacoes",      "modo": "dia", "colunas_data": ["dataval"],          "revisao_dias": 7 },
 
     { "nome": "venda_dif_valores",  "modo": "referencia" },
     { "nome": "produtos",           "modo": "referencia" },

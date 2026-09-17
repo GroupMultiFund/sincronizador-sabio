@@ -46,7 +46,7 @@ function Get-SabioPropriedade {
 
 # ------------------------------------------------------------------ regras (espelho do worker.js)
 # REGRAS:INICIO — não mudar o formato destas linhas: o teste lê-as.
-$script:TabelasPermitidas = @('anulacoes', 'caixa', 'caixadia', 'compensacoes', 'docpag', 'documentos', 'documentos_pessoas', 'empregados', 'emppostos', 'empzonas', 'familias', 'fichaingredientes', 'fichatecnica', 'historico_mesas', 'historico_precos', 'mapamesas', 'marcacoes', 'mesasmov', 'postos', 'produtos', 'quebras', 'subfamilias', 'tblstockmov', 'tipospagamento', 'venda_dif_valores', 'vendas', 'zonas')
+$script:TabelasPermitidas = @('anulacoes', 'caixa', 'caixadia', 'compensacoes', 'docpag', 'documentos', 'documentos_pessoas', 'empregados', 'emppostos', 'empzonas', 'familias', 'fichaingredientes', 'fichatecnica', 'gratificacoes', 'historico_mesas', 'historico_precos', 'mapamesas', 'marcacoes', 'mesasmov', 'postos', 'produtos', 'quebras', 'subfamilias', 'tblstockmov', 'tipospagamento', 'venda_dif_valores', 'vendas', 'zonas')
 $script:PadraoCredencial = 'pass|senha|pwd|token|secret|apikey|api_key|certific|^pin$|^login$'
 $script:PadraoPessoal = 'contribuinte|morada|telefone|telemovel|e_?mail|nascimento|codpostal|codigo_postal|localidade|^carga$|^descarga$|iban|matricula|foto|nomecontacto|nome_contacto|identificacao|rfid'
 $script:ColunasProibidasTabela = @{ documentos = @('nome'); empregados = @('obs'); marcacoes = @('obs') }
@@ -1389,7 +1389,9 @@ function Test-SabioLigacaoSql {
         return [pscustomobject]@{ ok = $false; mensagem = "Nao liga: $($_.Exception.Message)"; ler_clientes = $false; escrever = $false }
     }
     try {
-        $lerDocs = Invoke-SabioSqlEscalar -Ligacao $cn -Sql "SELECT HAS_PERMS_BY_NAME('dbo.documentos', 'OBJECT', 'SELECT')"
+        # Por coluna e não pela tabela: depois do fechar-leitura.sql há colunas
+        # negadas em documentos, e a pergunta pela tabela inteira passa a dar 0.
+        $lerDocs = Invoke-SabioSqlEscalar -Ligacao $cn -Sql "SELECT HAS_PERMS_BY_NAME('dbo.documentos', 'OBJECT', 'SELECT', 'numero', 'COLUMN')"
         $lerClientes = Invoke-SabioSqlEscalar -Ligacao $cn -Sql "SELECT HAS_PERMS_BY_NAME('dbo.clientes', 'OBJECT', 'SELECT')"
         $escrever = Invoke-SabioSqlEscalar -Ligacao $cn -Sql "SELECT HAS_PERMS_BY_NAME('dbo.documentos', 'OBJECT', 'INSERT')"
         $ok = ([int]$lerDocs -eq 1)

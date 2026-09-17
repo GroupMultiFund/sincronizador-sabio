@@ -75,8 +75,11 @@ Em vez do contribuinte, `documentos` leva `_tem_nif` (1/0). `999999990`
 (consumidor final) conta como sem NIF.
 
 Dos empregados entram nome e código; password, foto, telefone, email,
-identificação e observações (`obs`, texto livre) não. Das reservas
-(`marcacoes`) também não entram as observações: costumam ter nomes e telefones.
+identificação e observações (`obs`, texto livre) não. Das picagens do relógio
+de ponto (`marcacoes`) também não entram as observações (texto livre).
+
+Desde a 1.0.2 entram também as gorjetas (`gratificacoes`: empregado, dia,
+valor e total da venda).
 
 ---
 
@@ -140,6 +143,19 @@ No PC de administração:
 
 Cria um CSV (`;`, UTF-8 — abre directamente no Excel em português), depois de
 confirmar o SHA-256 de cada partição. Se alguma não bater, pára com erro.
+
+### Quem lê o arquivo: o leitor (Worker 2.1.0)
+
+A construção do dashboard (GitHub Actions) lê o arquivo com uma identidade
+própria, `_leitor`, e a chave `CHAVE_LEITURA` — independente da chave mestra.
+O leitor vê todas as lojas (`/v1/lojas`, `/v1/indice`, `/v1/ler`) e **não pode
+escrever**: o Worker recusa-lhe qualquer outra rota. As lojas, ao contrário, não
+podem usar `/v1/lojas` nem `/v1/indice` e só lêem o que é seu.
+
+A chave de leitura existe em três sítios: segredo `CHAVE_LEITURA` do Worker,
+segredo `ARQUIVO_CHAVE_LEITURA` do repositório `dashboard-sabio`, e cifrada no
+PC de administração (`gerir-chaves.ps1 -NovaChaveLeitura` / `-CopiarChaveLeitura`).
+Para a trocar: gerar com `-Forcar` e actualizar os dois segredos. Os POS não mudam.
 
 ---
 
@@ -211,16 +227,26 @@ e enviar o conteúdo de `dist\producao\publicado\` para a fonte de actualizaçõ
 
 O `dashboard_ro` é `db_datareader`: consegue ler **todas** as tabelas. O
 sincronizador não envia a `clientes` nem as credenciais, mas negar no SQL é
-uma garantia em vez de uma promessa. Correr uma vez, como administrador do SQL:
+uma garantia em vez de uma promessa.
 
-```sql
-USE zsrest_2025_1;   -- a base em uso na loja
-DENY SELECT ON dbo.clientes     TO dashboard_ro;
-DENY SELECT ON dbo.ATConfig     TO dashboard_ro;
-DENY SELECT ON dbo.mailconfig   TO dashboard_ro;
-DENY SELECT ON dbo.utilizadores TO dashboard_ro;
-DENY SELECT ON dbo.empregados (password) TO dashboard_ro;
-```
+Script por loja em `POS\13_fechar_leitura_<loja>.sql`, gerado de
+`ferramentas\fechar-leitura.modelo.sql`. Corre no SSMS do POS como administrador:
+primeiro tal como está (só mostra a lista), depois com `@aplicar = 1`. Nega:
+
+- as tabelas `clientes`, `ATConfig`, `mailconfig` e `utilizadores` inteiras;
+- em **todas** as tabelas, as colunas que as regras do sincronizador consideram
+  credencial ou dado pessoal, mais `documentos.nome`, `empregados.obs` e `marcacoes.obs`;
+- **nunca** `documentos.contribuinte`: o `_tem_nif` é calculado a partir dela no POS.
+
+No fim valida-se como o próprio `dashboard_ro` e tem de aparecer **TUDO OK**. Tem um
+bloco DESFAZER no fim.
+
+Cuidados, medidos num SQL Server 2022 a 17-09-2026:
+- com colunas negadas, um `SELECT COUNT(*) FROM tabela` **sem mais nenhuma coluna** e
+  um `SELECT *` falham; consultas que nomeiam colunas permitidas funcionam
+  (as do sincronizador e as do extrator antigo);
+- `HAS_PERMS_BY_NAME('dbo.documentos','OBJECT','SELECT')` passa a dar 0 — por isso o
+  *Testar ligação* pergunta pela coluna `numero` a partir da 1.0.2.
 
 O botão *Testar ligação* do configurador avisa se o utilizador ainda consegue ler `clientes`.
 
