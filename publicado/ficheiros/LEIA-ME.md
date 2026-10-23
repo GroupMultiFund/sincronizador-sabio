@@ -263,6 +263,7 @@ O botão *Testar ligação* do configurador avisa se o utilizador ainda consegue
 | `Limite diario de escritas atingido` | Normal na carga inicial em plano gratuito; continua no dia seguinte |
 | Versão revertida | `registos\arranque.log` |
 | O serviço não arranca | `registos\SincronizadorSabio.wrapper.log` e `.err.log` |
+| O serviço pára sozinho e fica parado | Correr `ferramentas\VIGIA.bat` no POS (uma vez, como administrador): recuperação também nas paragens com erro, tarefa «Sincronizador Sabio - vigia» de 10 em 10 min, arranque atrasado com o Windows, e um .zip dos registos no Ambiente de Trabalho para o suporte. O que a vigia fez fica em `registos\vigia.log` |
 
 No D1, `SELECT * FROM _sincronizacoes WHERE loja = 'x' ORDER BY id DESC LIMIT 20`
 mostra cada corrida, com estado, linhas e escritas.

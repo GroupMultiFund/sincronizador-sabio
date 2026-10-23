@@ -558,7 +558,12 @@ function Remove-SabioRegistosAntigos {
     param([int]$Dias = 30)
     $dir = Join-Path (Get-SabioDirDados) 'registos'
     if (-not (Test-Path -LiteralPath $dir)) { return }
-    Get-ChildItem -LiteralPath $dir -Filter '*.log' | Where-Object { $_.LastWriteTime -lt (Get-Date).AddDays(-$Dias) } | Remove-Item -Force
+    # Só os registos do próprio sincronizador. Os do WinSW (SincronizadorSabio.err.log, .out.log,
+    # .wrapper.log) ficam abertos enquanto o serviço corre: tentar apagá-los fazia o arranque morrer
+    # (1.0.2, a partir do 30.º dia de instalação) — e uma limpeza que falha nunca pode parar o serviço.
+    Get-ChildItem -LiteralPath $dir -Filter 'sincronizador-*.log' -ErrorAction SilentlyContinue |
+        Where-Object { $_.LastWriteTime -lt (Get-Date).AddDays(-$Dias) } |
+        ForEach-Object { try { Remove-Item -LiteralPath $_.FullName -Force -ErrorAction Stop } catch { } }
 }
 
 # ------------------------------------------------------------------ ficheiros e permissões
